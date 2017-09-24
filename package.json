@@ -1,0 +1,23 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "description": "simple node project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xmfpes/node-project.git"
+  },
+  "author": "kyunam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xmfpes/node-project/issues"
+  },
+  "homepage": "https://github.com/xmfpes/node-project#readme",
+  "dependencies": {
+    "express": "^4.15.4"
+  }
+}
