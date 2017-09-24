@@ -23,9 +23,12 @@
             <!-- 댓글영역  -->
             <hr />
             <div id="comment_area">
-                <% comments.forEach( function(comment){ %>
-                    <div><%=comment.content%></div>
-                <%});%>
+                <% comments.forEach(function(comment){ %>
+                    <div>
+                        <%=comment.content%>
+                        ( <a class='comment_delete' comment_id='<%=comment.id%>'>삭제</a> )
+                    </div>
+                <% }); %>
             </div>
         </div>
     </div>
@@ -47,7 +50,8 @@
                 .done(function(args) {
                     if(args.message==="success"){
                         $('#comment_area').append(
-                            '<div>' + args.content + '</div>'
+                            '<div>' + args.content +
+                            " ( <a class='comment_delete' comment_id='"+ args.id +"'>삭제</a> ) </div>"
                         );
                         $('#commentForm textarea[name=content]').val("");
                     }
@@ -62,4 +66,23 @@
         });
     });
 })();
+</script>
+<script>
+$(document).on('click' , '.comment_delete' , function(){
+    if(confirm('삭제하시겠습니까?')){ //확인창 예 눌렀을 시만 진행
+        var $self = $(this);
+        $.ajax({
+            url: '/admin/products/ajax_comment/delete',
+            type: 'POST',
+            data: { comment_id : $self.attr('comment_id') },
+        })
+        .done(function() {
+            $self.parent().remove();
+            alert("삭제가 완료되었습니다.");
+        })
+        .fail(function(args) {
+            console.log(args);
+        });
+    }
+});
 </script>
