@@ -10,6 +10,10 @@ var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+var flash = require('connect-flash');
+//passport 로그인 관련
+var passport = require('passport');
+var session = require('express-session');
 
 var db = mongoose.connection;
 db.on('error', console.error);
@@ -30,6 +34,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/uploads', express.static('uploads'));
+app.use(session({
+    secret: 'fastcampus',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 2000 * 60 * 60 //지속시간 2시간
+    }
+}));
+
+//passport 적용
+app.use(passport.initialize());
+app.use(passport.session());
+
+//플래시 메시지 관련
+app.use(flash());
 
 app.get('/', function(req, res){
     res.send("Hello, Node.js");
