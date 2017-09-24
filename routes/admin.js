@@ -60,4 +60,10 @@ router.post('/products/edit/:id', function(req, res){
     });
 });
 
+router.get('/products/delete/:id', function(req, res){
+    ProductsModel.remove({ id : req.params.id }, function(err){
+        res.redirect('/admin/products');
+    });
+});
+
 module.exports = router;
