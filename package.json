@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/xmfpes/node-project#readme",
   "dependencies": {
-    "express": "^4.15.4"
+    "express": "^4.15.4",
+    "mongodb": "^2.2.31",
+    "mongoose": "^4.11.12",
+    "mongoose-auto-increment": "^5.0.1"
   }
 }
