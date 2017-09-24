@@ -10,7 +10,11 @@
             <td>
                 <a href="/admin/products/detail/<%=product.id%>"><%=product.name%></a>
             </td>
-            <td><%=product.created_at%></td>
+            <td>
+                <%=product.getDate.year%> -
+                <%=product.getDate.month%> -
+                <%=product.getDate.day%>
+            </td>
             <td>
                 <a href="#" class="btn btn-danger">삭제</a>
             </td>
