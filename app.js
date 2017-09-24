@@ -3,6 +3,7 @@ var app = express();
 var port = 3000;
 
 var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 //auto-increment를 위한 패키지
 var autoIncrement = require('mongoose-auto-increment');
 var path = require('path');

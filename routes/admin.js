@@ -7,9 +7,13 @@ router.get('/', function(req, res){
 });
 
 router.get('/products', function(req, res){
-    res.render('admin/products', 
-        {message : "hello, ejs"}    
-    );
+    ProductsModel.find(function(err, products){
+        res.render('admin/products', 
+            { products : products }    
+            //ProductModel의 products를 받아서
+            //admin/products로 response를 보낸다.
+        );
+    });
 });
 
 router.get('/products/write', function(req,res){
