@@ -5,6 +5,8 @@ var port = 3000;
 var mongoose = require('mongoose');
 //auto-increment를 위한 패키지
 var autoIncrement = require('mongoose-auto-increment');
+var path = require('path');
+
 var db = mongoose.connection;
 db.on('error', console.error);
 db.once('open', function(){
@@ -16,12 +18,16 @@ autoIncrement.initialize(connect);
 //admin module get
 var admin = require('./routes/admin');
 
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
 app.get('/', function(req, res){
     res.send("Hello, Node.js");
 });
 
 //routes add
 app.use('/admin', admin);
+
 app.listen(port, function(){
     console.log("server start!");
 });
