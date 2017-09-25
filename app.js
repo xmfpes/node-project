@@ -26,6 +26,7 @@ autoIncrement.initialize(connect);
 //admin module get
 var admin = require('./routes/admin');
 var accounts = require('./routes/accounts');
+var auth = require('./routes/auth');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -57,6 +58,7 @@ app.get('/', function(req, res){
 //routes add
 app.use('/admin', admin);
 app.use('/accounts', accounts);
+app.use('/auth', auth);
 
 app.listen(port, function(){
     console.log("server start!");
