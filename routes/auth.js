@@ -14,8 +14,8 @@ passport.deserializeUser(function (user, done) {
 
 passport.use(new FacebookStrategy({
         // https://developers.facebook.com에서 appId 및 scretID 발급
-        clientID: "YOURAPPID", //입력하세요
-        clientSecret: "YOURAPPSECERET", //입력하세요.
+        clientID: "863352300499259", //입력하세요
+        clientSecret: "36867723fbdd49dac987f9a061e2206a", //입력하세요.
         callbackURL: "http://localhost:3000/auth/facebook/callback",
         profileFields: ['id', 'displayName', 'photos', 'email'] //받고 싶은 필드 나열
     },
@@ -51,14 +51,13 @@ router.get('/facebook', passport.authenticate('facebook', { scope: 'email'}) );
 
 //인증후 페이스북에서 이 주소로 리턴해줌. 상단에 적은 callbackURL과 일치
 router.get('/facebook/callback',
-    passport.authenticate('facebook',
-        {
-            successRedirect: '/auth/facebook/success',
-            failureRedirect: '/auth/facebook/fail'
+    passport.authenticate('facebook', 
+        { 
+            successRedirect: '/',
+            failureRedirect: '/auth/facebook/fail' 
         }
     )
 );
-
 //로그인 성공시 이동할 주소
 router.get('/facebook/success', function(req,res){
     res.send(req.user);

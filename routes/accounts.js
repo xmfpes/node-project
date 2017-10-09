@@ -56,14 +56,14 @@ router.get('/login', function(req, res){
     res.render('accounts/login', { flashMessage : req.flash().error });
 });
 
-router.post('/login' ,
-    passport.authenticate('local', {
-        failureRedirect: '/accounts/login',
-        failureFlash: true
-    }),
-    function(req, res){
-        res.send('<script>alert("로그인 성공");location.href="/accounts/success";</script>');
-    }
+router.post('/login' , 
+passport.authenticate('local', { 
+    failureRedirect: '/accounts/login', 
+    failureFlash: true 
+}), 
+function(req, res){
+    res.send('<script>alert("로그인 성공");location.href="/";</script>');
+}
 );
 
 router.get('/success', function(req, res){
