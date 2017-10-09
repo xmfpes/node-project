@@ -27,6 +27,7 @@ autoIncrement.initialize(connect);
 var admin = require('./routes/admin');
 var accounts = require('./routes/accounts');
 var auth = require('./routes/auth');
+var home = require('./routes/home.js');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -58,11 +59,8 @@ app.use(function(req, res, next) {
     next();
   });
 
-app.get('/', function(req, res){
-    res.send("Hello, Node.js");
-});
-
 //routes add
+app.use('/', home);
 app.use('/admin', admin);
 app.use('/accounts', accounts);
 app.use('/auth', auth);

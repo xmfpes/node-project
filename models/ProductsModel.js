@@ -14,7 +14,8 @@ var ProductsSchema = new Schema({
     created_at : { //작성일
         type : Date,
         default : Date.now()
-    }
+    },
+    username : String  //작성자추가
 });
 
 ProductsSchema.virtual('getDate').get(function(){
