@@ -29,7 +29,9 @@ var accounts = require('./routes/accounts');
 var auth = require('./routes/auth');
 var home = require('./routes/home.js');
 var chat = require('./routes/chat')
-
+var connectMongo = require('connect-mongo');
+var MongoStore = connectMongo(session);
+ 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(logger('dev'));
@@ -37,14 +39,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/uploads', express.static('uploads'));
-app.use(session({
+
+var sessionMiddleWare = session({
     secret: 'fastcampus',
     resave: false,
     saveUninitialized: true,
     cookie: {
       maxAge: 2000 * 60 * 60 //지속시간 2시간
-    }
-}));
+    },
+    store: new MongoStore({
+        mongooseConnection: mongoose.connection,
+        ttl: 14 * 24 * 60 * 60
+    })
+});
+app.use(sessionMiddleWare);
 
 //passport 적용
 app.use(passport.initialize());
@@ -73,4 +81,8 @@ var server = app.listen( port, function(){
 
 var listen = require('socket.io');
 var io = listen(server);
+//socket io passport 접근하기 위한 미들웨어 적용
+io.use(function(socket, next){
+  sessionMiddleWare(socket.request, socket.request.res, next);
+});
 require('./libs/socketConnection')(io);
